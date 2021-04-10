@@ -1,202 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Animações Compostas</title>
-    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-</head>
-<body>
-    <!-- #### DOCUMENTAÇÂO -->
-    <!-- 
-        https://aframe.io/docs/1.0.4/components/animation.html 
-        https://aframe.io/docs/1.0.0/components/animation.html#easings
-        https://aframe.io/docs/1.0.0/components/text.html#generating-sdf-fonts
-        https://msdf-bmfont.donmccurdy.com/ (Gerador de texto com caracteres especiais)
-    -->
-    <a-scene>
+<html>
 
-        <!-- Camera -->
-        <a-entity position="0 5 5">
-            <a-camera></a-camera>
-        </a-entity>
+    <head>
+        <title>A-Frame Starter Kit - Mini Fancy Planetarium</title>
+        <meta name="description" content="Build your own planetarium with A-frame">
+        <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
 
-        <!-- Céu -->
-        <a-sky src="sky.png"></a-sky>
+        <!-- let's extend A-Frame with a star system component so we can get a
+        starry background -->
+        <script src="https://unpkg.com/aframe-star-system-component@1.0.0/index.js"></script>
+    </head>
 
-      
+    <body>
+        <a-scene>
 
-        <!-- Ponto de luz-->
-        <a-light
-        type="ambient"
-        color="#c0c0c0"
-        intensity="0.5"></a-light>
-        </a-light>
+            <!-- our assets section is where we organize images, audio, and
+            other files we want to include in our scene. They can be referenced
+            later by their ID -->
+            <a-assets>
+                <img id="sun-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2F1024px-Map_of_the_full_sun.jpg?1540859304920"
+                    crossorigin="anonymous">
+                <img id="mercury-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2Fmercurymap.jpg?1541102122291"
+                    crossorigin="anonymous">
+                <img id="venus-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2Fvenusmap.jpg?1541102155907"
+                    crossorigin="anonymous">
+                <img id="earth-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2Fearthmap1k.jpg?1541102064615"
+                    crossorigin="anonymous">
+                <img id="mars-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2Fmars_1k_color.jpg?1541102234577"
+                    crossorigin="anonymous">
+                <img id="jupiter-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2Fjupitermap.jpg?1541101634813"
+                    crossorigin="anonymous">
+                <img id="saturn-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2Fsaturnmap.jpg?1541102148468"
+                    crossorigin="anonymous">
+                <img id="uranus-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2Furanusmap.jpg?1541102150185"
+                    crossorigin="anonymous">
+                <img id="neptune-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2Fneptunemap.jpg?1541102137305"
+                    crossorigin="anonymous">
+                <img id="pluto-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2Fplutomap1k.jpg?1541102145905"
+                    crossorigin="anonymous">
+                <img id="moon-texture" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2FMoonmap_from_clementine_data.png?1541102132708"
+                    crossorigin="anonymous">
+                <a-asset-item id="asteroids" response-type="arraybuffer" src="https://cdn.glitch.com/d558c128-2ed0-4284-a0da-4d18b9163ad6%2Fasteroides.glb?1541106805090"></a-asset-item>
+            </a-assets>
 
-        <!-- Ponto de luz-->
-        <a-light
-        type="point"
-        color="#c0c0c0"
-        intensity="1.5"
-        position="0 3.5 2">
-        </a-light>
+            <!-- Let's start using a custom camera so we can put the sun in the
+            middle and still see it-->
+            <a-entity position="-5 5 20" rotation="-13 0 0">
+                <a-entity camera look-controls wasd-controls></a-entity>
+            </a-entity>
 
-        <!-- #### EXEMPLO #01 ######################################################## -->
-        <!-- #### Caixa com Animação de Rotação, Escala e Opacidade ################## -->
+            <a-sky color="black"></a-sky>
 
-        <!-- Texto com as propriedades da animação de Rotação-->
-        <a-entity
-        geometry="primitive: plane; width: 8; height: 2"
-        position="-7.5 1.5 0"
-        material="color: #FF0000; roughness:1;"
-        text="font:	fonts/ARIAL.TTF-msdf.json; negate:false;
-        width: 10; 
-        wrapCount: 90; 
-        color: #000;
-        align: center;
-        value:ANIMAÇÃO 01 
-        property: rotation | to: 0 -360 0 | loop: true | dur: 5000  | easing: linear
-        
-        ANIMAÇÃO 02
-        property: scale | to: 2 1 5 | loop: true | dir: alternate | dur: 5000 | easing: easeInOutElastic
-        
-        ANIMAÇÃO 03
-        property: opacity | from: 1 | to: 0 | loop: true | dir: alternate | dur: 1500
-        ">
-        </a-entity>
+            <!-- We can use our star system component here to add a nice starry
+            sky -->
+            <a-entity star-system="count: 1000; radius: 250; depth: 0"></a-entity>
 
-                    <!-- Primitiva Box (caixa) com a animação combinada da rotação, escala e opacidade -->   
-        <a-box color="red"
-        position="-7 4 0"
-        animation__rotacao="property: rotation;
-        from: 0 0 0;
-        to: 0 -360 0;
-        loop: true;
-        dur: 5000;
-        easing: linear"
-                animation__escala="property: scale;
-                to: 0.2 1 5;
-                loop: true;
-                dir: alternate;
-                dur: 5000;
-                easing: easeInOutElastic"
-                animation__opacidade="property: opacity;
-                            from: 1;
-                            to: 0;
-                            loop: true;
-                            dir: alternate;
-                            dur: 2500">
-        </a-box>
 
-        <!-- #### EXEMPLO #02 ############################################### -->
-        <!-- #### Cubo em órbita da Esfera com transição de cor ############# -->
+            <!-- The sun is now our 'origin' which makes things a lot easier -->
+            <a-sphere id="sun" position="0 0 0" radius="4" color="#F5C85D" src="#sun-texture"></a-sphere>
 
-        <!-- Texto com as propriedades da animação de rotação da órbita do Cubo-->
-        <a-entity
-        geometry="primitive: plane; width: 7; height: 2"
-        position="0 1.5 0"
-        material="color: grey; roughness:1;"
-        text="width: 10; 
-        wrapCount: 90; 
-        align: center;
-        baseline: bottom;
-        value: property: rotation | to: 0 360 0 | loop: true | dur: 5000 | easing: linear">
-        </a-entity>
+            <!-- We'll add an asteroid belt using a gltf model, see the Readme
+            for more info about how to use these -->
+            <a-entity id="asteroid-belt" gltf-model="#asteroids" scale="2.1 2.1 2.1" position="0 0 0"></a-entity>
 
-        <!-- Texto com as propriedades da animação de rotação do Cubo-->
-        <a-entity
-        geometry="primitive: plane; width: 6.5; height: 1"
-        position="0 0.8 0.01"
-        material="color: green; roughness:1;"
-        text="width: 10; 
-        wrapCount: 90; 
-        align: center;
-        value: property: rotation | to: 0 -360 0 | loop: true | dur: 5000 | easing: linear">
-        </a-entity>
+            <!-- we use the textures defined in assets to make our planets more
+            realistic-->
+            <a-sphere id="mercury" position="0 0 6" radius=".4" src="#mercury-texture"></a-sphere>
+            <a-sphere id="venus" position="0 0 8.5" radius=".4" src="#venus-texture"></a-sphere>
+            <a-sphere id="mars" position="0 0 12.5" radius=".4" src="#mars-texture"></a-sphere>
+            <a-sphere id="jupiter" position="0 0 24" radius="2.5" src="#jupiter-texture"></a-sphere>
+            <a-sphere id="pluto" position="0 0 46" radius=".4" src="#pluto-texture"></a-sphere>
 
-        <!-- Entidade neutra com a animação de rotação da órbita do Cubo-->
-        <a-entity position="0 4 0"
-                    animation="property: rotation;
-                                to: 0 -360 0;
-                                loop: true;
-                                dur: 5000;
-                                easing: linear">
 
-            <!-- Cubo verde com a animação de rotação sobre si mesmo-->
-            <a-box color="green"
-                    position="2 0 0"
-                    animation="property: rotation;
-                                to: 0 -360 0;
-                                loop: true;
-                                dur: 5000;
-                                easing: linear">
-            </a-box>
-        </a-entity>
+            <a-entity id="earth-and-moon" position="0 0 10.5">
+                <a-sphere position="0 0 0" radius=".5" color="#6DCBE7" id="earth" src="#earth-texture"> </a-sphere>
+                <a-entity id="moon-orbit" position="-1 0 0">
+                    <a-sphere radius=".10" color="#DBE0DE" id="moon" src="#moon-texture"></a-sphere>
+                </a-entity>  
+                
+            </a-entity>
 
-        <!-- Texto com as propriedades da animação de transição de cor da Esfera -->
-        <a-entity
-        geometry="primitive: plane; width: 8.5; height: 1"
-        position="0 7 0"
-        material="color: #00AAFF; roughness:1;"
-        text="width: 10; 
-        wrapCount: 90; 
-        color: #000;
-        align: center;
-        value: property: material.color | from: #00AAFF | to: #3f9306 | loop: true | dir: alternate | dur: 1500">
-        </a-entity>
-        
-        <!-- Esfera a animação de transição da cor azul para verde -->
-        <a-sphere color="#0000AA"
-                radius="0.5"
-                position="0 5 0"
-                animation="property: material.color;
-                            from: #00AAFF;
-                            to: #3f9306;
-                            loop: true;
-                            dir: alternate;
-                            dur: 1500">
-        </a-sphere>
+            <!-- our Torii (the plural of toris) are now using the
+            entity-component system. See the Readme to learn more about it! -->
+            <a-entity id="saturn-container" position="0 0 31">
+                <a-sphere radius="1.8" id="saturn" src="#saturn-texture"></a-sphere>
+                <a-entity id="saturn-ring-1" geometry="primitive: torus; radius: 3.2; radiusTubular: 0.1;segmentsTubular: 50"
+                    material="color: #57524A;" rotation="90 0 0" scale="1 1 0.1"></a-entity>
+                <a-entity id="saturn-ring-2" geometry="primitive: torus; radius: 2.4; radiusTubular: 0.2;segmentsTubular: 50"
+                    material="color: #A29A87;" rotation="90 0 0" scale="1 1 0.1"></a-entity>
+            </a-entity>
 
-        <!-- #### EXEMPLO #03 ######################################### -->
-        <!-- #### Caixa com Animação de Parafuso ###################### -->
+            <a-entity id="uranus-container" position="0 0 36">
+                <a-sphere id="uranus" radius=".75" src="#uranus-texture"></a-sphere>
+                <a-entity id="uranus-ring" geometry="primitive: torus; radius: 1.5; radiusTubular: 0.01;segmentsTubular: 50"
+                    material="color: #FFFFFF;" rotation="-10 90 0" scale="1 1 0.1"></a-entity>
+            </a-entity>
 
-        <!-- Texto com as propriedades da animação-->
-        <a-entity
-        geometry="primitive: plane; width: 10; height: 2"
-        position="8.5 1.5 0"
-        material="color: #FFAA00; roughness:1;"
-        text="font:	fonts/ARIAL.TTF-msdf.json; negate:false;
-        width: 10;
-        color: #000; 
-        wrapCount: 90; 
-        align: center;
-        value:ANIMAÇÃO 01
-        property: position | from: 8 4 -2 | to: 8 4 2 | loop: true | dir: alternate | dur: 3000 | easing: easeInOutCubic
+            <a-entity id="neptune-container" position="0 0 40">
+                <a-sphere id="neptune" radius="1" src="#neptune-texture"></a-sphere>
+                <a-entity id="neptune-ring-1" geometry="primitive: torus; radius: 2; radiusTubular: 0.01;segmentsTubular: 50"
+                    material="color: #FFFFFF;opacity: 0.8" rotation="90 0 0" scale="1 1 0.1"></a-entity>
+                <a-entity id="neptune-ring-2" geometry="primitive: torus; radius: 1.7; radiusTubular: 0.05;segmentsTubular: 50"
+                    material="color: #FFFFFF;opacity: 0.8" rotation="90 0 0" scale="1 1 0.1"></a-entity>
+                <a-entity id="neptune-ring-3" geometry="primitive: torus; radius: 1.3; radiusTubular: 0.01;segmentsTubular: 50"
+                    material="color: #FFFFFF;opacity: 0.8" rotation="90 0 0" scale="1 1 0.1"></a-entity>
+            </a-entity>
+        </a-scene>
+    </body>
 
-        ANIMAÇÃO 02
-        property: rotation | to: 0 0 360 | loop: true | dur: 1000 | easing: linear
-        ">
-        </a-entity>
-
-        <!-- Primitiva Box (caixa) com a animação de rotação e posição-->
-        <a-box color="#FFAA00"
-        position="0 0 0"
-        animation__rotacao="property: rotation;
-        to: 0 0 360;
-        loop: true;
-        dur: 1000;
-        easing: linear"
-        animation__posicao="property: position;
-        from: 8 4 -2;
-        to: 8 4 2;
-        loop: true;
-        dir: alternate;
-        dur: 3000;
-        easing: easeInOutCubic"
-        >
-        </a-box>
-    
-    </a-scene>
-
-</body>
 </html>
