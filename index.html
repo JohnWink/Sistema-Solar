@@ -5,57 +5,71 @@
         <meta name="description" content="Build your own planetarium with A-frame">
         <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
         <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
+    <style>
  
+  
+     
+    </style>
     </head>
 
     <body>
         <a-scene>
+            
 
             <a-sky src="Assets\sky.png"></a-sky>
-            <!-- Let's start using a custom camera so we can put the sun in the
-            middle and still see it-->
+   
             <a-entity position="-5 5 20" rotation="-13 0 0">
-                <a-entity camera look-controls wasd-controls></a-entity>
+                    <a-entity camera look-controls wasd-controls>
+                    </a-entity>
             </a-entity>
+            <a-entity geometry="primitive: box" material="color: red" position="0 0 -2"></a>
 
-
-            <!-- We can use our star system component here to add a nice starry
-            sky -->
+     
             <a-entity star-system="count: 1000; radius: 250; depth: 0"></a-entity>
 
 
-            <!-- The sun is now our 'origin' which makes things a lot easier -->
+            <a-entity light="type: ambient; intensity: 0.5;"></a-entity>
             <a-sphere 
             id="sun" 
             position="0 0 0"
             animation="property:rotation;
             to: 0 -360 0;
             loop: true;
-            dur: 2537;
+            dur: 25370;
             easing: linear"
             radius="4" 
-            color="#F5C85D" src="Assets\1024px-Map_of_the_full_sun.jpg"></a-sphere>
+            sound="src: url(Assets\'This Too Shall Pass' [Bittersweet Neoclassical CC-BY] - Scott Buckley.mp3); autoplay: true"
+            color="#F5C85D" src="Assets\1024px-Map_of_the_full_sun.jpg"
+            ></a-sphere>
+            <!-- Existem vários Pontos de luz pois o objeto "sun" é demasiado grande para ter uma fonte de luz no centro.
+            Deste modo dá a ilusão que o objeto está a transmitir luz em várias direções-->
+            <a-light  type= "point" position="0 0 8" castShadow="true"></a-light>
+            <a-light  type= "point" position="0 0 -8" castShadow="true"></a-light>
+            <a-light  type= "point" position="0 8 0" castShadow="true"></a-light>
+            <a-light  type= "point" position="0 -8 0" castShadow="true"></a-light>
+            <a-light  type= "point" position="8 0 0" castShadow="true"></a-light>
+            <a-light  type= "point" position="-8 0 0" castShadow="true"></a-light>
 
          
 
-            <!-- we use the textures defined in assets to make our planets more
-            realistic-->
+        
             <a-entity
             position="0 0 0" 
             animation="property:rotation;
                                 to: 0 -360 0;
                                 loop: true;
-                                dur: 8800;
+                                dur: 88000;
                                 easing: linear"
             >
                 <a-sphere 
                 id="mercury" 
                 position="0 0 6" 
+                shadow="cast: true"
                 radius=".4" 
                 animation=  "property: rotation;
                             to: 0 -360 0;
                             loop: true;
-                            dur: 5800;
+                            dur: 58000;
                             easing: linear"
                 src="Assets\mercurymap.jpg"
                 ></a-sphere>
@@ -66,16 +80,17 @@
             animation="property: rotation;
                                 to: 0 -360 0;
                                 loop: true;
-                                dur: 22500;
+                                dur: 225000;
                                 easing: linear">
                 <a-sphere 
                 id="venus" 
+                shadow="cast: true"
                 position="0 0 8.5" 
                 radius=".4" 
                 animation=  "property: rotation;
                             to: 0 -360 0;
                             loop: true;
-                            dur: 24300;
+                            dur: 243000;
                             easing: linear"
                 src="Assets\venusmap.jpg"
                 ></a-sphere>
@@ -86,16 +101,17 @@
             animation="property: rotation;
                                 to: 0 -360 0;
                                 loop: true;
-                                dur: 66900;
+                                dur: 669000;
                                 easing: linear">
                 <a-sphere 
                 id="mars" 
+                shadow="cast: true"
                 position="0 0 12.5" 
                 radius=".4" 
                 animation=  "property: rotation;
                             to: 0 -360 0;
                             loop: true;
-                            dur: 100;
+                            dur: 1000;
                             easing: linear"
                 src="Assets\mars_1k_color.jpg"
                 ></a-sphere>
@@ -107,16 +123,17 @@
             animation="property: rotation;
                                 to: 0 -360 0;
                                 loop: true;
-                                dur: 422200;
+                                dur: 4222000;
                                 easing: linear">
                 <a-sphere 
                 id="jupiter" 
+
                 position="0 0 24" 
                 radius="2.5"
                 animation=  "property: rotation;
                             to: 0 -360 0;
                             loop: true;
-                            dur: 41;
+                            dur: 410;
                             easing: linear" 
                 src="Assets\jupitermap.jpg"
                 ></a-sphere>
@@ -128,16 +145,17 @@
             animation="property: rotation;
                                 to: 0 -360 0;
                                 loop: true;
-                                dur: 8849800;
+                                dur: 88498000;
                                 easing: linear">
                 <a-sphere 
-                id="pluto" 
+                id="pluto"
+                shadow="cast: true" 
                 position="0 0 46" 
                 radius=".4" 
                 animation=  "property: rotation;
                             to: 0 -360 0;
                             loop: true;
-                            dur: 639;
+                            dur: 6390;
                             easing: linear"
                 src="Assets\plutomap1k.jpg"
                 ></a-sphere>
@@ -150,7 +168,7 @@
             animation="property: rotation;
                                 to: 0 -360 0;
                                 loop: true;
-                                dur: 35600;
+                                dur: 356000;
                                 easing: linear"
             >
             >
@@ -161,6 +179,7 @@
                 >
                     <a-sphere 
                     position="0 0 0" 
+                    shadow="cast: true"
                     radius=".5"  
                     color="#6DCBE7" 
                     id="earth" 
@@ -168,7 +187,7 @@
                     animation="property: rotation;
                                 to: 0 -360 0;
                                 loop: true;
-                                dur: 100;
+                                dur: 1000;
                                 easing: linear"
                     >
                     > </a-sphere>
@@ -179,11 +198,12 @@
                     animation="property: rotation;
                                 to: 0 -360 0;
                                 loop: true;
-                                dur: 500;
+                                dur: 5000;
                                 easing: linear"
                     >
                         <a-sphere 
                         radius=".10" 
+                        shadow="cast: true"
                         position="-1 0 0" 
                         color="#DBE0DE" 
                         id="moon" 
@@ -191,7 +211,7 @@
                         animation="property: rotation;
                         to: 0 -360 0;
                         loop: true;
-                        dur: 500;
+                        dur: 5000;
                         easing: linear"
                         >
                         ></a-sphere>
@@ -207,17 +227,18 @@
                 animation="property: rotation;
                 to: 0 -360 0;
                 loop: true;
-                dur: 1048700;
+                dur: 10487000;
                 easing: linear" >
                 <a-entity id="saturn-container" position="0 0 31">
                     <a-sphere 
                         radius="1.8" 
                         id="saturn" 
+                        shadow="cast: true"
                         src="Assets\saturnmap.jpg"
                         animation=  "property: rotation;
                                     to: 0 -360 0;
                                     loop: true;
-                                    dur: 45;
+                                    dur: 450;
                                     easing: linear"
                     ></a-sphere>
                     <a-entity id="saturn-ring-1" geometry="primitive: torus; radius: 3.2; radiusTubular: 0.1;segmentsTubular: 50"
@@ -232,11 +253,12 @@
                 animation="property: rotation;
                 to: 0 -360 0;
                 loop: true;
-                dur: 2990756;
+                dur: 29907560;
                 easing: linear">
                 <a-entity id="uranus-container" position="0 0 36">
                     <a-sphere 
                     id="uranus" 
+                    shadow="cast: true"
                     radius=".75"
                     animation=  "property: rotation;
                                 to: 0 -360 0;
@@ -255,25 +277,26 @@
                 animation="property: rotation;
                 to: 0 -360 0;
                 loop: true;
-                dur: 5866524;
+                dur: 58665240;
                 easing: linear">
                 <a-entity id="neptune-container" position="0 0 40">
                     <a-sphere 
                         id="neptune" 
+                        shadow="cast: true"
                         radius="1" 
                         src="Assets\neptunemap.jpg"
                         animation=  "property: rotation;
                         to: 0 -360 0;
                         loop: true;
-                        dur: 67;
+                        dur: 670;
                         easing: linear"
                     ></a-sphere>
                     <a-entity id="neptune-ring-1" geometry="primitive: torus; radius: 2; radiusTubular: 0.01;segmentsTubular: 50"
-                        material="color: #FFFFFF;opacity: 0.8" rotation="90 0 0" scale="1 1 0.1"></a-entity>
+                        material="color: #FFFFFF;opacity: 0.8" rotation="90 0 0" scale="1 1 0.1" shadow="cast: true"></a-entity>
                     <a-entity id="neptune-ring-2" geometry="primitive: torus; radius: 1.7; radiusTubular: 0.05;segmentsTubular: 50"
-                        material="color: #FFFFFF;opacity: 0.8" rotation="90 0 0" scale="1 1 0.1"></a-entity>
+                        material="color: #FFFFFF;opacity: 0.8" rotation="90 0 0" scale="1 1 0.1" shadow="cast: true"></a-entity>
                     <a-entity id="neptune-ring-3" geometry="primitive: torus; radius: 1.3; radiusTubular: 0.01;segmentsTubular: 50"
-                        material="color: #FFFFFF;opacity: 0.8" rotation="90 0 0" scale="1 1 0.1"></a-entity>
+                        material="color: #FFFFFF;opacity: 0.8" rotation="90 0 0" scale="1 1 0.1" shadow="cast: true"></a-entity>
                 </a-entity>
             </a-entity>
         </a-scene>
