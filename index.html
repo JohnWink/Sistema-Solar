@@ -18,8 +18,14 @@
 
             <a-sky src="Assets\sky.png"></a-sky>
    
-            <a-entity position="-5 5 20" rotation="-13 0 0">
-                    <a-entity camera look-controls wasd-controls>
+            <a-entity 
+                position="-5 5 20"     
+                rotation="-13 0 0"
+                >
+                    <a-entity 
+                    camera look-controls wasd-controls
+                    sound="src: url(Assets\sistemaSolarTextToSpeech.mp3); autoplay: true"> 
+                    >
                     </a-entity>
             </a-entity>
             <a-entity geometry="primitive: box" material="color: red" position="0 0 -2"></a>
@@ -38,7 +44,7 @@
             dur: 25370;
             easing: linear"
             radius="4" 
-            sound="src: url(Assets\'This Too Shall Pass' [Bittersweet Neoclassical CC-BY] - Scott Buckley.mp3); autoplay: true"
+            sound="src: url(Assets\'This Too Shall Pass' [Bittersweet Neoclassical CC-BY] - Scott Buckley.mp3); autoplay: true"w
             color="#F5C85D" src="Assets\1024px-Map_of_the_full_sun.jpg"
             ></a-sphere>
             <!-- Existem vários Pontos de luz pois o objeto "sun" é demasiado grande para ter uma fonte de luz no centro.
@@ -120,6 +126,7 @@
 
             <a-entity
             position="0 0 0"
+            rotation = "0 40 0"
             animation="property: rotation;
                                 to: 0 -360 0;
                                 loop: true;
@@ -129,6 +136,7 @@
                 id="jupiter" 
 
                 position="0 0 24" 
+                
                 radius="2.5"
                 animation=  "property: rotation;
                             to: 0 -360 0;
@@ -142,6 +150,7 @@
 
             <a-entity
             position="0 0 0"
+            rotation = "0 20 0"
             animation="property: rotation;
                                 to: 0 -360 0;
                                 loop: true;
@@ -224,6 +233,7 @@
             entity-component system. See the Readme to learn more about it! -->
             <a-entity
                 position="0 0 0"
+                rotation = "0 10 0"
                 animation="property: rotation;
                 to: 0 -360 0;
                 loop: true;
@@ -250,6 +260,7 @@
 
             <a-entity
                 position="0 0 0"
+                rotation = "0 90 0"
                 animation="property: rotation;
                 to: 0 -360 0;
                 loop: true;
@@ -274,6 +285,7 @@
 
             <a-entity
                 position="0 0 0"
+                rotation = "0 180 0"
                 animation="property: rotation;
                 to: 0 -360 0;
                 loop: true;
